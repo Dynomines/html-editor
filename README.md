@@ -1,5 +1,5 @@
 # HTML Editor
-Simple text editor the currently only supports html
+Simple text editor that currently only supports html
 ## Features:
 - html Save As
 - Open text file
