@@ -401,11 +401,6 @@
     cssTxt.value = atob("Ym9keSB7DQogICAgZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOw0KICAgIG1hcmdpbjogMDsNCiAgICBwYWRkaW5nOiAwOw0KICAgIGJveC1zaXppbmc6IGJvcmRlci1ib3g7DQogICAgYmFja2dyb3VuZC1jb2xvcjogI2YwZjBmMDsNCiAgICBjb2xvcjogIzMzMzsNCn0NCg0KaGVhZGVyIHsNCiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjNENBRjUwOw0KICAgIGNvbG9yOiB3aGl0ZTsNCiAgICBwYWRkaW5nOiAxMHB4IDA7DQogICAgdGV4dC1hbGlnbjogY2VudGVyOw0KfQ0KDQptYWluIHsNCiAgICBwYWRkaW5nOiAyMHB4Ow0KICAgIHRleHQtYWxpZ246IGNlbnRlcjsNCn0NCg0KYnV0dG9uIHsNCiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjNENBRjUwOw0KICAgIGNvbG9yOiB3aGl0ZTsNCiAgICBib3JkZXI6IG5vbmU7DQogICAgcGFkZGluZzogMTBweCAyMHB4Ow0KICAgIHRleHQtYWxpZ246IGNlbnRlcjsNCiAgICB0ZXh0LWRlY29yYXRpb246IG5vbmU7DQogICAgZGlzcGxheTogaW5saW5lLWJsb2NrOw0KICAgIGZvbnQtc2l6ZTogMTZweDsNCiAgICBtYXJnaW46IDEwcHggMnB4Ow0KICAgIGN1cnNvcjogcG9pbnRlcjsNCiAgICBib3JkZXItcmFkaXVzOiA0cHg7DQp9DQoNCmZvb3RlciB7DQogICAgYmFja2dyb3VuZC1jb2xvcjogIzRDQUY1MDsNCiAgICBjb2xvcjogd2hpdGU7DQogICAgdGV4dC1hbGlnbjogY2VudGVyOw0KICAgIHBhZGRpbmc6IDEwcHggMDsNCiAgICBwb3NpdGlvbjogZml4ZWQ7DQogICAgYm90dG9tOiAwOw0KICAgIHdpZHRoOiAxMDAlOw0KfQ0K")
     jsTxt.value = atob("ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2FsZXJ0QnV0dG9uJykuYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCBmdW5jdGlvbigpIHsNCiAgICBhbGVydCgnSGVsbG8sIHlvdSBjbGlja2VkIHRoZSBidXR0b24hJyk7DQp9KTs=")
 
-    function updateSiteview() {
-      var x = document.getElementById("htmlTextarea").value;
-      document.getElementById("siteV").srcdoc  = "<!doctype html> <html>" + x + "</html>";
-    }
-
     function compileDoc() {
       var compDoc = document.getElementById("htmlTxt").value;
       var cssTxt = document.getElementById("cssTxt");
@@ -419,13 +414,20 @@
     function decompileDoc() {
       // WIP
       // make multi css file stack
-      return;
+      return decompDoc;
     }
 
+    function clearFileInput() {
+      var oldInput = document.getElementById('fileInput');
+      var newInput = document.createElement('input');
+      newInput.type = 'file';
+      newInput.id = 'fileInput';
+      oldInput.parentNode.replaceChild(newInput, oldInput);
+    }
     function loadfile(event) {
       var fr = new FileReader();
       fr.onload = function () {
-        htmlTextarea.value = fr.result;
+        htmlTxt.value = fr.result;
         nameTxt.value = event.target.files.item(0).name;
         if (event.target.files.item(0).type == "text/html") {
           nameTxt.value = nameTxt.value.replace(".html", "")
@@ -433,7 +435,9 @@
         }
       };
       fr.readAsText(event.target.files[0]);
+      clearFileInput()
     }
+    
 
     function createBlank() {
       var code = compileDoc();
